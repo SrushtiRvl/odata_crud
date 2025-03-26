@@ -1,0 +1,120 @@
+<mvc:View
+    controllerName="odatacrud.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <Table id="products" items="{Products>/Products}" selectionChange="onChange" mode="SingleSelectMaster">
+            <headerToolbar>
+                <Toolbar>
+                    <ToolbarSpacer />
+                    
+                    <Button
+                        text="Add"
+                        press="onAdd"
+                        type="Emphasized"
+                        icon="sap-icon://add"
+                    />
+                    <Button
+                        text="Delete"
+                        press="onDelete"
+                        type="Emphasized"
+                        icon="sap-icon://delete"
+                    />
+                </Toolbar>
+            </headerToolbar>
+            <columns>
+                <Column>
+                    <Text text="Id" />
+                </Column>
+                <Column>
+                    <Text text="Name" />
+                </Column>
+                <Column>
+                    <Text text="Price" />
+                </Column>
+                <Column>
+                    <Text text="Quantity" />
+                </Column>
+                <Column>
+                    <Text text="Stock" />
+                </Column>
+                <Column>
+                    <Text text="Actions" />
+                </Column>
+            </columns>
+            <items>
+            <ColumnListItem >
+                <cells>
+                    <Input
+                        value="{Products>ID}"
+                        editable="false"
+                    />
+                    <Input
+                        value="{Products>NAME}"
+                        editable="{Products>editMode}"
+                    />
+                    <Input
+                        value="{Products>PRICE}"
+                        editable="{Products>editMode}"
+                    />
+                    <Input
+                        value="{Products>QTY}"
+                        editable="{Products>editMode}"
+                    />
+                    <FlexBox>
+                        <ObjectStatus
+                            id="obj"
+                            class="sapUiTinyMargin"
+                            inverted="true"
+                            visible="{=${Products>editMode}? false: true}"
+                            text="{Products>STOCK}"
+                            
+                            state="{= (${Products>STOCK}==='Available')? 'Success' : 'Error'}"
+                        />
+                        <ComboBox
+                            id="cbStatus"
+                            items="{Products>/Stock}"
+                            selectedKey="{Products>sValue}"
+                            visible="{Products>editMode}"
+                        >
+                            <core:Item
+                                key="{Products>sKey}"
+                                text="{Products>sValue}"
+                            />
+                        </ComboBox>
+                    </FlexBox>
+                    <FlexBox>
+                        <core:Icon
+                            src="sap-icon://edit"
+                            press="onEdit"
+                            class="sapUiTinyMargin"
+                            visible="{=${Products>editMode}? false: true}"
+                        />
+                        <core:Icon
+                            src="sap-icon://save"
+                            press="onSave"
+                            class="sapUiTinyMargin"
+                            visible="{Products>editMode}"
+                        />
+                        <core:Icon
+                            src="sap-icon://sys-cancel"
+                            press="onCancel"
+                            class="sapUiTinyMargin"
+                            visible="{Products>editMode}"
+                        />
+                    </FlexBox>
+                </cells>
+            </ColumnListItem>
+            </items>
+        </Table>
+
+
+        
+
+    </Page>
+</mvc:View>
